@@ -194,10 +194,10 @@ Using this would ensure that the sdk works normally for API level 16 & above, an
 
 #### A. Server side Truecaller Profile authenticity check
 
-Inside TrueProfile class there are 2 important fields, payload and signature. Payload is a Base64 encoding of the json object containing all profile info of the user. Signature contains the payload's signature. You can forward these fields back to your backend and verify the authenticity of the information by:
+Inside TrueProfile class there are 2 important fields, payload and signature. Payload is a Base64 encoding of the json object containing all profile info of the user. Signature contains the payload's signature. You can forward these fields back to your backend and verify the authenticity of the information. 
 
-1. Fetch Truecaller public keys using this api: https://api4.truecaller.com/v1/key (you need to fetch the keys only if you have never done it or if you cannot verify the signature with any of the already cached keys);
-2. Loop through the public keys and try to verify the signature and payload;
+For details on the verification flow and sample code snippets, please refer the following link :
+https://github.com/singhalyogesh/truesdk-backend-validation
 
 IMPORTANT: Truecaller SDK already verifies the authenticity of the response before forwarding it to the your app.
 
