@@ -16,17 +16,21 @@ Once we have received the package name and the SHA-1 signing-fingerprint, we wil
 
 ### Understanding how the user verification flow works
 
- - Truecaller app needs to be present on the user's device. User starts by clicking on your Login / Signup CTA and would be shown the standard Truecaller profile view asking for the user's consent. The user authorizes by clicking verify and their Truecaller profile would be shared with you
+ - Truecaller app needs to be present on the user's device. User starts by clicking on your defined CTA and would be shown the standard Truecaller profile verification dialog asking for user's consent. The user authorizes by clicking verify and their Truecaller profile would be shared with the app as response object
+ 
+ ![Diagram](https://github.com/singhalyogesh/sdk-doc/blob/master/1.png)
 
 
 ### Using the SDK with your Android Studio Project
 
 1. Ensure that your Minimum SDK version is atleast API level 16 or above ( Android 4.1 ). In case your android project compiles for API level below 16, you can include the following line in your AndroidManifest.xml file to avoid any compilation issues :
-```java
-<uses-sdk tools:overrideLibrary="com.truecaller.android.sdk"/>
-```
-Using this would ensure that the sdk works normally for API level 16 & above, and would be disabled for API level < 16
-Please make sure that you put the necessary API level checks before accessing the SDK methods in case compiling for API level < 16
+
+    ```java
+    <uses-sdk tools:overrideLibrary="com.truecaller.android.sdk"/> 
+    ```
+
+   Using this would ensure that the sdk works normally for API level 16 & above, and would be disabled for API level < 16
+   Please make sure that you put the necessary API level checks before accessing the SDK methods in case compiling for API        level < 16
 
 2. Add the provided truesdk-0.7-releasePartner.aar file into your libs folder. Example path: /app/libs/ 
 3. Open the build.gradle of your application module and ensure that your lib folder can be used as a repository :
@@ -64,7 +68,7 @@ Please make sure that you put the necessary API level checks before accessing th
     </application>
     ```
    
- 6. Check if the truecaller app is present on the user's device or not by using the following method
+6. Check if the truecaller app is present on the user's device or not by using the following method
     ```java
     TrueSDK.getInstance().isUsable()
     ```
@@ -134,13 +138,13 @@ Please make sure that you put the necessary API level checks before accessing th
 	TrueSdkScope.SDK_CONSENT_TITLE_GET_STARTED
 	```
        
- 7. Add the following condition in the onActivityResult method:
+7. Add the following condition in the onActivityResult method:
 
       ```java
       TrueSDK.getInstance().onActivityResultObtained( this,resultCode, data);
       ```
       
- 8. In your selected Activity
+8. In your selected Activity
 
    - Either make the Activity implement ITrueCallback or create an instance. 
 	This interface has 2 methods: onSuccesProfileShared(TrueProfile) and onFailureProfileShared(TrueError)
@@ -168,12 +172,20 @@ Please make sure that you put the necessary API level checks before accessing th
     
    ```
     
-   Write all the relevant logic in onSuccesProfileShared(TrueProfile) for displaying the information you have just received and onFailureProfileShared(TrueError) for handling the error and notify the user.
+   Write all the relevant logic in onSuccesProfileShared(TrueProfile) for displaying the information you have just received      and onFailureProfileShared(TrueError) for handling the error and notify the user.
 
- 9. You can trigger the Truecaller profile verification dialog anywhere in your app flow by calling the following method -        ```java TrueSDK.getInstance().getUserProfile() 
+9. You can trigger the Truecaller profile verification dialog anywhere in your app flow by calling the following method -        ```java TrueSDK.getInstance().getUserProfile() 
     ```
    
- 10. (Optional) 
+10. (Optional) Truecaller SDK gives you the capability to customize the profile dialog in multiple Indian languages. To do so,      add the following lines before calling the "getUserProfile()" method as mentioned in the above step - 
+	
+      ```java
+      Locale locale = new Locale("ru");
+      TrueSDK.getInstance().setLocale(locale);
+      ```
+     Note : In case the input locale is not supported, the profile will by default be shown in English language
+     
+11. (Optional) 
     You can set a unique requestID for every profile request with
     `TrueSDK.getInstance().setRequestNonce(customHash);`
     
