@@ -213,7 +213,7 @@ IMPORTANT: Truecaller SDK already verifies the Request-Response correlation befo
 
 ### Supported languages for profile customization
 
-    ```java
+    `
     
      - Hindi
      - Bhojpuri
@@ -230,4 +230,4 @@ IMPORTANT: Truecaller SDK already verifies the Request-Response correlation befo
      - Odia
      - Assamese
      
-    ```
+    `
