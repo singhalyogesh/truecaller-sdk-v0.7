@@ -2,6 +2,14 @@
 
 ## Getting started
 
+
+### Understanding how the user verification flow works
+
+ - Truecaller app needs to be present on the user's device. User starts by clicking on your defined CTA and would be shown the standard Truecaller profile verification dialog asking for user's consent. The user authorizes by clicking verify and their Truecaller profile would be shared with the app as response object
+ 
+ ![Diagram](https://github.com/singhalyogesh/truecaller-sdk-v0.7/blob/master/truecaller_user_verification_flow.png)
+ 
+ 
 ### Account Setup
 
 To ensure the authenticity of the interactions between your app and Truecaller, you need to generate a partner key from the truecaller developer portal ( https://developer.truecaller.com/auth/login ) by providing us with your package name and SHA-1 signing-fingerprint.
@@ -13,12 +21,6 @@ keytool -list -v -keystore mystore.keystore
 ```
 
 Once we have received the package name and the SHA-1 signing-fingerprint, we will provide you with a unique "PartnerKey" which you need to include in your project to authorize all verification requests.
-
-### Understanding how the user verification flow works
-
- - Truecaller app needs to be present on the user's device. User starts by clicking on your defined CTA and would be shown the standard Truecaller profile verification dialog asking for user's consent. The user authorizes by clicking verify and their Truecaller profile would be shared with the app as response object
- 
- ![Diagram](https://github.com/singhalyogesh/sdk-doc/blob/master/1.png)
 
 
 ### Using the SDK with your Android Studio Project
