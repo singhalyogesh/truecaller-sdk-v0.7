@@ -87,7 +87,7 @@ Once we have received the package name and the SHA-1 signing-fingerprint, we wil
     
     TrueSDK v0.7 provides you with capabilities to configure the following settings -
 
-    ##### - Consent Mode 
+    ##### Consent Mode 
 	To switch between a full screen view or an overlay view of the truecaller profile verification view
 	
 	Possible values for Consent Mode :
@@ -100,7 +100,7 @@ Once we have received the package name and the SHA-1 signing-fingerprint, we wil
 	TrueSdkScope.CONSENT_MODE_FULLSCREEN
 	```
 	
-    ##### - Footer Type
+    ##### Footer Type
 	To configure the CTA present at the bottom
 	
 	Possible values for Footer Type :
@@ -113,7 +113,7 @@ Once we have received the package name and the SHA-1 signing-fingerprint, we wil
 	TrueSdkScope.FOOTER_TYPE_SKIP
 	```
 	
-    ##### - Consent Title Options
+    ##### Consent Title Options
 	To provide appropriate context of verification to the truecaller user 
 	
 	Possible values for the Title option :
@@ -174,10 +174,12 @@ Once we have received the package name and the SHA-1 signing-fingerprint, we wil
     
    Write all the relevant logic in onSuccesProfileShared(TrueProfile) for displaying the information you have just received      and onFailureProfileShared(TrueError) for handling the error and notify the user.
 
-9. You can trigger the Truecaller profile verification dialog anywhere in your app flow by calling the following method -        ```java TrueSDK.getInstance().getUserProfile() 
+9. You can trigger the Truecaller profile verification dialog anywhere in your app flow by calling the following method -        
+    ```java 
+        TrueSDK.getInstance().getUserProfile() 
     ```
    
-10. (Optional) Truecaller SDK gives you the capability to customize the profile dialog in multiple Indian languages. To do so,      add the following lines before calling the "getUserProfile()" method as mentioned in the above step - 
+10. (Optional) Truecaller SDK gives you the capability to customize the profile dialog in multiple Indian languages ( Refer list of supported languages [here](#supported-languages-for-profile-customization) ). To do so,      add the following lines before calling the "getUserProfile()" method as mentioned in the above step - 
 	
       ```java
       Locale locale = new Locale("ru");
@@ -192,16 +194,13 @@ Once we have received the package name and the SHA-1 signing-fingerprint, we wil
     Note : The customHash must be a base64 URL safe string with a minimum character length of 8 and maximum of 64 characters
 
 
-### Advanced and Optional
+### Advanced Steps
 
 #### A. Server side Truecaller Profile authenticity check
 
-Inside TrueProfile class there are 2 important fields, payload and signature. Payload is a Base64 encoding of the json object containing all profile info of the user. Signature contains the payload's signature. You can forward these fields back to your backend and verify the authenticity of the information. 
+Truecaller SDK already verifies the authenticity of the response before forwarding it to your app. However, if you wish to additionally check the authenticity of the response at your end, you can do so. For details on the verification flow and sample code snippets, please refer the following link :
 
-For details on the verification flow and sample code snippets, please refer the following link :
 https://github.com/truecaller/backend-sdk-validation
-
-IMPORTANT: Truecaller SDK already verifies the authenticity of the response before forwarding it to the your app.
 
 #### B. Request-Response correlation check
 
@@ -211,3 +210,22 @@ Every request sent via a Truecaller app that supports truecaller SDK 0.7 has a u
 2. In `ITrueCallback.onSuccesProfileShared(TrueProfile)` verify that the previously generated identifier matches the one in TrueProfile.requestNonce.
 
 IMPORTANT: Truecaller SDK already verifies the Request-Response correlation before forwarding it to the your app.
+
+### Supported languages for profile customization
+
+    ```java
+     - Hindi
+     - Bhojpuri
+     - Rajasthani
+     - Haryanvi
+     - Marathi
+     - Telugu
+     - Malayalam
+     - Gujarati
+     - Punjabi
+     - Tamil
+     - Bengali
+     - Kannada
+     - Odia
+     - Assamese
+    ```
