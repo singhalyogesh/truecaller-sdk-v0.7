@@ -212,8 +212,6 @@ Every request sent via a Truecaller app that supports truecaller SDK 0.7 has a u
 IMPORTANT: Truecaller SDK already verifies the Request-Response correlation before forwarding it to the your app.
 
 ### Supported languages for profile customization
-
-    `
     
      - Hindi
      - Bhojpuri
@@ -230,4 +228,4 @@ IMPORTANT: Truecaller SDK already verifies the Request-Response correlation befo
      - Odia
      - Assamese
      
-    `
+    
