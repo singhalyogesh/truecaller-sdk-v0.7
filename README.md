@@ -90,7 +90,7 @@ Once we have received the package name and the SHA-1 signing-fingerprint, we wil
     TrueSDK v0.7 provides you with capabilities to configure the following settings -
 
     ##### - Consent Mode 
-	To switch between a full screen view or an overlay view of the profile consent
+	To switch between a full screen view or an overlay view of the truecaller profile verification view
 	
 	Possible values for Consent Mode :
 	
@@ -118,7 +118,7 @@ Once we have received the package name and the SHA-1 signing-fingerprint, we wil
     ##### - Consent Title Options
 	To provide appropriate context of verification to the truecaller user 
 	
-	Possible values for Consent Title option :
+	Possible values for the Title option :
 	
 	```java
 	// To use "Login" as the contextual text in the user profile view title
