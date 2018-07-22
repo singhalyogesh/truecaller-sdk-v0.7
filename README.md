@@ -26,6 +26,7 @@ Once we have received the package name and the SHA-1 signing-fingerprint, we wil
 <uses-sdk tools:overrideLibrary="com.truecaller.android.sdk"/>
 ```
 Using this would ensure that the sdk works normally for API level 16 & above, and would be disabled for API level < 16
+Please make sure that you put the necessary API level checks before accessing the SDK methods in case compiling for API level < 16
 
 2. Add the provided truesdk-0.7-releasePartner.aar file into your libs folder. Example path: /app/libs/ 
 3. Open the build.gradle of your application module and ensure that your lib folder can be used as a repository :
@@ -62,18 +63,13 @@ Using this would ensure that the sdk works normally for API level 16 & above, an
     ...
     </application>
     ```
-
-6. Add the TrueButton view in the selected layout. You can have only one TrueButton per Activity
-
+   
+ 6. Check if the truecaller app is present on the user's device or not by using the following method
     ```java
-    
-    <com.truecaller.android.sdk.TrueButton
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    truesdk:truebutton_text="cont"/>
+    TrueSDK.getInstance().isUsable()
     ```
-
-7. Create a TrueSdkScope object by using the appropriate configurational settings and use it to initialize the TrueSDK in your android activity's onCreate method:
+    
+    Accordingly, if the truecaller app is present on the device - Create a TrueSdkScope object by using the appropriate configurational settings and use it to initialize the TrueSDK in your android activity's onCreate method:
     
      ```java
      TrueSdkScope trueScope = new TrueSdkScope.Builder(this, sdkCallback)
@@ -137,26 +133,14 @@ Using this would ensure that the sdk works normally for API level 16 & above, an
 	// To use "Get Started" as the contextual text in the user profile view title
 	TrueSdkScope.SDK_CONSENT_TITLE_GET_STARTED
 	```
-
- 8. (Optional) 
-    You can set a unique requestID for every profile request with
-    `TrueSDK.getInstance().setRequestNonce(customHash);`
-    
-    Note : The customHash must be a base64 URL safe string with a minimum character length of 8 and maximum of 64 characters
-
- 9. Initialise the TrueButton in the onCreate method:
-
-      ```java
-      TrueButton trueButton = findViewById(R.id.com_truecaller_android_sdk_truebutton);
-      ```
-    
- 10. Add the following condition in the onActivityResult method:
+       
+ 7. Add the following condition in the onActivityResult method:
 
       ```java
       TrueSDK.getInstance().onActivityResultObtained( this,resultCode, data);
       ```
       
- 11. In your selected Activity
+ 8. In your selected Activity
 
    - Either make the Activity implement ITrueCallback or create an instance. 
 	This interface has 2 methods: onSuccesProfileShared(TrueProfile) and onFailureProfileShared(TrueError)
@@ -185,10 +169,16 @@ Using this would ensure that the sdk works normally for API level 16 & above, an
    ```
     
    Write all the relevant logic in onSuccesProfileShared(TrueProfile) for displaying the information you have just received and onFailureProfileShared(TrueError) for handling the error and notify the user.
-   
 
-  (Optional)  
-  In order to use a custom button instead of the default TrueButton call trueButton.onClick(trueButton) in its onClick listner. Make sure your button follow our visual guidelines.
+ 9. You can trigger the Truecaller profile verification dialog anywhere in your app flow by calling the following method -        ```java TrueSDK.getInstance().getUserProfile() 
+    ```
+   
+ 10. (Optional) 
+    You can set a unique requestID for every profile request with
+    `TrueSDK.getInstance().setRequestNonce(customHash);`
+    
+    Note : The customHash must be a base64 URL safe string with a minimum character length of 8 and maximum of 64 characters
+
 
 ### Advanced and Optional
 
@@ -197,7 +187,7 @@ Using this would ensure that the sdk works normally for API level 16 & above, an
 Inside TrueProfile class there are 2 important fields, payload and signature. Payload is a Base64 encoding of the json object containing all profile info of the user. Signature contains the payload's signature. You can forward these fields back to your backend and verify the authenticity of the information. 
 
 For details on the verification flow and sample code snippets, please refer the following link :
-https://github.com/singhalyogesh/truesdk-backend-validation
+https://github.com/truecaller/backend-sdk-validation
 
 IMPORTANT: Truecaller SDK already verifies the authenticity of the response before forwarding it to the your app.
 
